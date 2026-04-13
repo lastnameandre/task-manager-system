@@ -1,0 +1,39 @@
+# ===== IntelliJ =====
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+
+# ===== Eclipse =====
+.project
+.classpath
+.settings/
+
+# ===== VS Code =====
+.vscode/
+
+# ===== Maven / Gradle =====
+target/
+build/
+
+# ===== Logs =====
+*.log
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+
+# ===== Spring Boot =====
+application-local.properties
+
+# ===== DB =====
+*.db
+*.sqlite
+
+# ===== Java =====
+*.class
+
+# ===== Package files =====
+*.jar
+*.war
