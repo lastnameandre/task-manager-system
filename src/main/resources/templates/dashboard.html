@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Task Manager</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h2>Dashboard</h2>
+    <a class="btn" th:href="@{/tasks/create}">Create Task</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Assigned To</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}">1</td>
+            <td th:text="${task.title}">Task Title</td>
+            <td th:text="${task.status}">TODO</td>
+            <td th:text="${task.assignedTo.username}">User</td>
+            <td>
+                <a th:href="@{'/tasks/' + ${task.id}}">View</a>
+                <a th:href="@{'/tasks/edit/' + ${task.id}}">Edit</a>
+                <a th:href="@{'/tasks/delete/' + ${task.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn" th:href="@{/logout}">Logout</a>
+</div>
+</body>
+</html>

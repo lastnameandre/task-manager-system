@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create/Edit Task</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="container">
+    <h2 th:if="${task.id == null}">Create Task</h2>
+    <h2 th:if="${task.id != null}">Edit Task</h2>
+
+    <form th:if="${task.id == null}" th:object="${task}" th:action="@{/tasks/create}" method="post">
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" th:field="*{title}" required/>
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea th:field="*{description}" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>Status:</label>
+            <select th:field="*{status}">
+                <option value="TODO">TODO</option>
+                <option value="IN_PROGRESS">IN_PROGRESS</option>
+                <option value="DONE">DONE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Assign to:</label>
+            <select th:field="*{assignedTo.id}">
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+            </select>
+        </div>
+        <button type="submit">Create</button>
+    </form>
+
+    <form th:if="${task.id != null}" th:object="${task}" th:action="@{'/tasks/edit/' + ${task.id}}" method="post">
+        <div class="form-group">
+            <label>Title:</label>
+            <input type="text" th:field="*{title}" required/>
+        </div>
+        <div class="form-group">
+            <label>Description:</label>
+            <textarea th:field="*{description}" required></textarea>
+        </div>
+        <div class="form-group">
+            <label>Status:</label>
+            <select th:field="*{status}">
+                <option value="TODO" th:selected="${task.status == 'TODO'}">TODO</option>
+                <option value="IN_PROGRESS" th:selected="${task.status == 'IN_PROGRESS'}">IN_PROGRESS</option>
+                <option value="DONE" th:selected="${task.status == 'DONE'}">DONE</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Assign to:</label>
+            <select th:field="*{assignedTo}">
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"
+                        th:selected="${user.id == task.assignedTo.id}"></option>
+            </select>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+
+    <a th:href="@{/dashboard}">Back to Dashboard</a>
+</div>
+</body>
+</html>
